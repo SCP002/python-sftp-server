@@ -1,0 +1,10 @@
+[project]
+name = "python-sftp-server"
+version = "0.1.0"
+description = "Python SFTP server example with authentication and without deletion access"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "asyncssh>=2.24.0",
+    "rich>=15.0.0",
+]
