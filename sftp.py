@@ -2,6 +2,7 @@ import contextlib
 import functools
 import pathlib
 from collections.abc import AsyncGenerator
+from typing import Any
 
 import asyncssh
 import rich
@@ -11,7 +12,11 @@ class SSHServer(asyncssh.SSHServer):
     active_connections: set[asyncssh.SSHServerConnection] = set()
 
     def __init__(
-        self, *args, allowed_username: str | None = None, allowed_password: str | None = None, **kwargs
+        self,
+        *args: Any,
+        allowed_username: str | None = None,
+        allowed_password: str | None = None,
+        **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
         self.conn: asyncssh.SSHServerConnection | None = None
@@ -77,6 +82,7 @@ async def start_sftp_server(
 ) -> AsyncGenerator[None, None]:
     """
     Start a simple SSH server that only allows SFTP connections, restricted to root_dir.
+
     Args:
         port: The port to listen on.
         allowed_username: The username required.
@@ -108,6 +114,7 @@ async def start_sftp_server(
 def ensure_ssh_keys() -> tuple[str, str]:
     """
     Ensures SSH key pair exists in the default user directory, generating new keys if missing.
+
     Returns:
         tuple[str, str]: Paths to the private key file and public key file, in that order.
     """
